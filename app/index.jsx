@@ -1,15 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Redirect } from 'expo-router'
 
-
-const Main = () => {
-
+const index = () => {
   return (
-   <Redirect href={'/home'}></Redirect>
+    <View  style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+       <ActivityIndicator size='large' color={'black'}></ActivityIndicator>
+    </View>
   )
 }
 
-export default Main
+export default index
 
 const styles = StyleSheet.create({})

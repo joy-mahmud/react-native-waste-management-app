@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { Link } from 'expo-router'
+import { Link, useRouter } from 'expo-router'
 import DatePicker from 'react-native-modern-datepicker';
 import dayjs from 'dayjs';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
@@ -9,6 +9,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 const Home = () => {
   const currentDate = dayjs().format('YYYY-MM-DD');
   const [date, setDate] = useState(currentDate)
+  const router=useRouter()
   const handleDateChange = (propdate) => {
     setDate(propdate)
   }
@@ -18,7 +19,7 @@ const Home = () => {
   }
 
   const handleNext = () => {
-    console.log("next pressed")
+    router.push('home/homeRoot/timeAndOthers')
   }
 
   return (
