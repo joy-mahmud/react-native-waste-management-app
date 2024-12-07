@@ -135,7 +135,7 @@ const FormInputs = () => {
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: 'center' }}>
-                        <TouchableOpacity onPress={handleSubmit} style={{ backgroundColor: "#6A0DAD", paddingRight: 10, paddingLeft: 15, paddingVertical: 5, borderRadius: 10, marginTop: 15 }}>
+                        <TouchableOpacity onPress={handleSubmit} style={{ backgroundColor: "#6A0DAD", paddingRight: 10, paddingLeft: 15, paddingVertical: 10, borderRadius: 10, marginTop: 15 }}>
                             <View style={{ flexDirection: 'row', alignItems: "flex-end" }}>
                                 <Text style={{ fontSize: 20, fontWeight: 500, color: "#fff" }}>submit</Text>
                                 <MaterialIcons name="keyboard-arrow-right" size={24} color="#fff" />

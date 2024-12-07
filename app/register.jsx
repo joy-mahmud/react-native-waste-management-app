@@ -56,7 +56,7 @@ const Register = () => {
           contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
         >
-          <Text style={styles.title}>Signup</Text>
+          <Text style={styles.title}>Create a new account</Text>
 
           {/* Name Input */}
           <Text style={styles.label}>Name</Text>
@@ -108,7 +108,7 @@ const Register = () => {
             </TouchableOpacity>
           </View>
           <View style={{ flexDirection: 'row', gap: 2, marginBottom: 15, }}>
-            <Text style={{ fontSize: 16 }}>Already have an account?</Text><Link style={{ color: "#6A0DAD", fontSize: 16, fontWeight: 500 }} href={'/'}>Login</Link>
+            <Text style={{ fontSize: 16 }}>Already have an account?</Text><Link style={{ color: "#6A0DAD", fontSize: 16, fontWeight: 500 }} href={'/login'}>Login</Link>
           </View>
 
           {/* Submit Button */}
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
+    color:"#6A0DAD"
   },
   label: {
     fontSize: 16,
