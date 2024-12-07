@@ -9,7 +9,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="homeRoot"
         options={{
-            title: 'Waste-Manager',
+            title: 'Home',
+            headerTitle:"Waste Management System",
             headerTitleAlign:"center",
             tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
           }}

@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Link } from 'expo-router'
 
 const profile = () => {
   return (
     <View>
-      <Text>profile</Text>
+      <Link href={'/register'}>register page</Link>
+      <Link href={'/login'} style={{marginTop:20}}>login page</Link>
     </View>
   )
 }

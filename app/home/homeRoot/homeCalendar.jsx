@@ -14,12 +14,12 @@ const Home = () => {
     setDate(propdate)
   }
 
-  const handleTimeChange=(proptime)=>{
-      console.log(proptime)
-  }
-
   const handleNext = () => {
-    router.push('home/homeRoot/timeAndOthers')
+    console.log(date)
+    router.push(
+       `/home/homeRoot/formInputs?date=${date}`,
+      
+    )
   }
 
   return (
@@ -42,7 +42,7 @@ const Home = () => {
         minuteInterval={1}
         style={{ borderRadius: 10 }}
         onDateChange={handleDateChange}
-        onTimeChange={handleTimeChange}
+    
       ></DatePicker>
       <TouchableOpacity onPress={handleNext} style={{ backgroundColor: "#F4722B", paddingRight: 10,paddingLeft:15, paddingVertical: 5, borderRadius: 10, marginTop: 15 }}>
         <View style={{flexDirection:'row', alignItems:"flex-end"}}>
