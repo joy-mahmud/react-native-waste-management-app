@@ -8,6 +8,7 @@ const profile = () => {
       <Link href={'/register'}>register page</Link>
       <Link href={'/login'} style={{marginTop:20}}>login page</Link>
       <Link href={'/test'} style={{marginTop:20}}>create accont test page </Link>
+      <Link href={'/phone'} style={{marginTop:20}}>phone auth </Link>
     </View>
   )
 }

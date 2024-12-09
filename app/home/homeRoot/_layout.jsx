@@ -3,6 +3,7 @@ import React from 'react'
 import { Stack } from 'expo-router'
 
 const HomeInnerLayout = () => {
+  console.log()
   return (
     <Stack>
          <Stack.Screen name='homeCalendar' options={{headerShown:false}}/>

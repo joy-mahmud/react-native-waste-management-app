@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   View,
@@ -14,13 +14,17 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import axios from 'axios';
+import { BASE_URL } from '../utils/constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Login = () => {
+  const router= useRouter()
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setPasswordVisible] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async() => {
    
     if (!phoneNumber.trim()) {
       Alert.alert('Validation Error', 'Phone number is required.');
@@ -29,16 +33,23 @@ const Login = () => {
     if (!password.trim()) {
       Alert.alert('Password Error', 'Please put your password');
       return;
-    } else {
-      if (password.length < 6) {
-        Alert.alert("password error", "please enter at least 6 characters for the password")
-        return;
-      }
+    } 
+    const data= {
+      phone:phoneNumber,
+      password:password
+    }
+    const response = await axios.post(`${BASE_URL}/login`,data)
+    const token = response.data.token
+    if(response.status==200){
+      Alert.alert('Login Successful',token);
+     await AsyncStorage.setItem('authToken',token)
+     router.replace('/home')
+     
+    }
+    if (response.status==401){
+      Alert.alert("Inavalid credentials")
     }
 
-    // You can add more advanced validation logic here if needed
-
-    Alert.alert('Login Successful');
   };
 
   return (

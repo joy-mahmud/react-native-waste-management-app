@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const fire = () => {
+const phone = () => {
   return (
     <View>
-      <Text>fire</Text>
+      <Text>phone</Text>
     </View>
   )
 }
 
-export default fire
+export default phone
 
 const styles = StyleSheet.create({})

@@ -3,7 +3,11 @@ import { StyleSheet } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { useContext } from 'react';
+import {AuthContext} from "../../context/authContext"
 export default function TabLayout() {
+  const {value}=useContext(AuthContext)
+  console.log(value)
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: '#6A0DAD' }}>
       <Tabs.Screen
