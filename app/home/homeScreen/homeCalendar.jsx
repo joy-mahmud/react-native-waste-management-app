@@ -17,7 +17,7 @@ const Home = () => {
   const handleNext = () => {
     console.log(date)
     router.push(
-       `/home/homeRoot/formInputs?date=${date}`,
+       `/home/homeScreen/formInputs?date=${date}`,
       
     )
   }
@@ -50,7 +50,7 @@ const Home = () => {
           <MaterialIcons name="keyboard-arrow-right" size={24} color="#fff" />
         </View>
       </TouchableOpacity>
-
+     
 
     </View>
   )

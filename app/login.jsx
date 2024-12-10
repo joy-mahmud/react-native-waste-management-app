@@ -12,11 +12,13 @@ import {
   Platform,
   Keyboard,
   TouchableWithoutFeedback,
+  ToastAndroid,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import { BASE_URL } from '../utils/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 const Login = () => {
   const router= useRouter()
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -24,6 +26,16 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setPasswordVisible] = useState(false);
 
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Login Successful!',
+      text2: 'Congtratulations. you have successfully logged in 👋',
+      position: 'top',
+      visibilityTime: 2000, // Auto-dismiss after 500ms
+    });
+
+  };
   const handleLogin = async() => {
    
     if (!phoneNumber.trim()) {
@@ -38,18 +50,36 @@ const Login = () => {
       phone:phoneNumber,
       password:password
     }
-    const response = await axios.post(`${BASE_URL}/login`,data)
-    const token = response.data.token
-    if(response.status==200){
-      Alert.alert('Login Successful',token);
-     await AsyncStorage.setItem('authToken',token)
-     router.replace('/home')
-     
+    try {
+      const response = await axios.post(`${BASE_URL}/login`, data);
+  
+      if (response.status === 200) {
+        const token = response.data.token;
+        const user=response.data?.user
+  
+        // Save token in AsyncStorage
+        await AsyncStorage.setItem('authToken', token);
+        await AsyncStorage.setItem('user',JSON.stringify(user));
+        showToast()
+        setPhoneNumber('')
+        setPassword('')
+        setTimeout(() => {
+          router.replace('/home');
+        }, 1500);
+       
+        // Navigate to the home screen
+        
+      }
+    } catch (error) {
+      // Handle error response
+      if (error.response && error.response.status === 401) {
+        Alert.alert('Invalid Credentials', 'The phone number or password is incorrect.');
+      } else {
+        // Handle other possible errors
+        Alert.alert('Error', 'Something went wrong. Please try again later.');
+        console.error(error);
+      }
     }
-    if (response.status==401){
-      Alert.alert("Inavalid credentials")
-    }
-
   };
 
   return (
@@ -105,6 +135,7 @@ const Login = () => {
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
+          <Toast />
         </ScrollView>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>

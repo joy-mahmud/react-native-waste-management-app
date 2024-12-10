@@ -5,13 +5,14 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { useContext } from 'react';
 import {AuthContext} from "../../context/authContext"
+
 export default function TabLayout() {
   const {value}=useContext(AuthContext)
   console.log(value)
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: '#6A0DAD' }}>
       <Tabs.Screen
-        name="homeRoot"
+        name="homeScreen"
         options={{
             title: 'Home',
             headerTitle:"Waste Management System",
@@ -22,8 +23,7 @@ export default function TabLayout() {
        <Tabs.Screen
         name="profile"
          options={{
-            title: 'Profile',
-            headerTitleAlign:"center",
+            headerShown:false,
             tabBarIcon: ({ color }) => <MaterialCommunityIcons name="account" size={28} color={color} />,
           }}
       />
@@ -31,9 +31,11 @@ export default function TabLayout() {
         name="rewards"
         options={{
           title: 'My Points',
+          headerTitleAlign:"center",
           tabBarIcon: ({ color }) => <FontAwesome6 name="coins" size={24} color={color}/>,
         }}
       />
+     
     </Tabs>
   );
 }

@@ -18,6 +18,7 @@ import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import { BASE_URL } from '../utils/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 const Register = () => {
   const router = useRouter()
   const [name, setName] = useState('');
@@ -31,6 +32,17 @@ const Register = () => {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
   const [currentStep, setCurrentStep] = useState(1)
 
+
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Login Successful!',
+      text2: 'Congtratulations. you have successfully logged in 👋',
+      position: 'top',
+      visibilityTime: 1500, // Auto-dismiss after 500ms
+    });
+
+  };
   const handleSignup = () => {
     if (!name.trim()) {
       Alert.alert('Validation Error', 'Name is required.');
@@ -65,7 +77,7 @@ const Register = () => {
     //   Family Members: ${familyMembers}
     //   Waste Type: ${wasteType}
     // `);
-    
+
     const data = {
       name: name,
       email: email,
@@ -74,18 +86,24 @@ const Register = () => {
       address: address,
       holdingNo: holdingNumber,
       familyMember: familyMembers,
-      usualWasteType:wasteType
+      usualWasteType: wasteType
 
     };
-  
+
     try {
       // Make the API call
       const response = await axios.post(`${BASE_URL}/register`, data);
-      const token=response.data.token
+      const token = response.data.token
+      const user=response.data?.user
       if (response.status === 200) { // Assuming 201 is the success code
-        Alert.alert('Registration successful',"Welcome you have successfully completed your registration");
-        await AsyncStorage.setItem("authToken",token)
-        router.replace('/home')
+        //Alert.alert('Registration successful', "Welcome you have successfully completed your registration");
+        await AsyncStorage.setItem("authToken", token)
+        await AsyncStorage.setItem("user",JSON.stringify(user))
+        showToast()
+        setTimeout(() => {
+          router.replace('/home');
+        }, 1500);
+      
         setAddress('');
         setHoldingNumber('');
         setFamilyMembers('');
@@ -146,7 +164,7 @@ const Register = () => {
             <View style={styles.passContainer}>
               <TextInput
                 style={styles.passInput}
-                placeholder="Enter your password"
+                placeholder="Enter a new password"
                 value={password}
                 secureTextEntry={!isPasswordVisible}
                 onChangeText={setPassword}
@@ -221,7 +239,7 @@ const Register = () => {
             <TouchableOpacity style={styles.button} onPress={handleCompleteSignUp}>
               <Text style={styles.buttonText}>Complete</Text>
             </TouchableOpacity>
-
+            <Toast />
           </ScrollView>
         }
       </KeyboardAvoidingView>

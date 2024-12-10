@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     View,
     Text,
@@ -18,16 +18,21 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import dayjs from 'dayjs';
-
+import{BASE_URL} from "../../../utils/constants"
 import { Link,router, useGlobalSearchParams, useRouter } from 'expo-router'
+import axios from 'axios';
+import { AuthContext } from '../../../context/authContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FormInputs = () => {
+    const{userId}=useContext(AuthContext)
     const [radioValue, setRadioValue] = useState('option1');
     const [wasteType, setWasteType] = useState('');
     const [wasteAmount, setWasteAmount] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const [time, setTime] = useState("");
     const [show, setShow] = useState(false);
+    const [rewardPoints,setRewardPoints]=useState(null)
     const { date } = useGlobalSearchParams()
 
     const onChange = (event, selectedDate) => {
@@ -36,9 +41,27 @@ const FormInputs = () => {
         const formattedTime = dayjs(currentDate).format('hh:mm A')
         setTime(formattedTime);
     };
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
+        const data={
+            userId:userId,
+            wasteType:wasteType,
+            time:time,
+            date:date,
+            points:50,
+            rulesFollow:radioValue
+        }
         // Alert.alert(`you are rewarded with 200 points`)
-        setModalVisible(true)
+        const response = await axios.post(`${BASE_URL}/addTask`,data)
+        if(response.status==200){
+            await AsyncStorage.setItem('user',JSON.stringify(response.data.user));
+            setRewardPoints(response.data.user.points)
+            setModalVisible(true)
+            console.log(response.data.user)
+           
+        }else{
+            Alert.alert("Failed to add task! Try again.")
+        }
+       
 
     }
     return (
@@ -156,7 +179,7 @@ const FormInputs = () => {
                             <View style={styles.modalContainer}>
                                 <Text style={styles.modalTitle}>Excellent !!!</Text>
                                 <Text style={styles.modalContent}>
-                                    You are rewarded with <Text style={{fontsize:20,fontWeight:'bold'}}>200</Text> Points.
+                                    You got <Text style={{fontsize:20,fontWeight:'bold'}}>50</Text> Points.
                                 </Text>
 
                                 {/* Button to Close Modal */}
@@ -164,7 +187,7 @@ const FormInputs = () => {
                                     style={styles.closeButton}
                                     onPress={() => {
                                         setModalVisible(false)
-                                        router.replace('home/rewards')
+                                        router.replace(`home/rewards?rewardPoints=${rewardPoints}`)
                                     }}
                                 >
                                     <Text style={styles.buttonText}>OK</Text>
