@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/garbage-can.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.joyahmed.wastemanagementapp"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +37,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "5684ff28-7159-40dc-8e27-a764963eefc3"
+      }
     }
   }
 }
