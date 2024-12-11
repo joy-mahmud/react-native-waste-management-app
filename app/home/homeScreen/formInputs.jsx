@@ -47,7 +47,7 @@ const FormInputs = () => {
             wasteType:wasteType,
             time:time,
             date:date,
-            points:50,
+            points:100,
             rulesFollow:radioValue
         }
         // Alert.alert(`you are rewarded with 200 points`)
@@ -179,7 +179,7 @@ const FormInputs = () => {
                             <View style={styles.modalContainer}>
                                 <Text style={styles.modalTitle}>Excellent !!!</Text>
                                 <Text style={styles.modalContent}>
-                                    You got <Text style={{fontsize:20,fontWeight:'bold'}}>50</Text> Points.
+                                    You earn <Text style={{fontsize:20,fontWeight:'bold'}}>100</Text> Points.
                                 </Text>
 
                                 {/* Button to Close Modal */}
