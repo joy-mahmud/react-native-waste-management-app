@@ -8,7 +8,7 @@
 //   const handleLogout= async()=>{
 //     await AsyncStorage.removeItem('authToken')
 //     router.replace('/login')
-    
+
 //   }
 //   return (
 //     <View>
@@ -26,13 +26,15 @@
 // const styles = StyleSheet.create({})
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, Image, TouchableOpacity, Alert, ImageBackground } from 'react-native';
+import { View, Text, Button, StyleSheet, Image, TouchableOpacity, Alert, ImageBackground, Modal, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
 
+
 const ProfileScreen = () => {
   const router = useRouter()
+
   const [profile, setProfile] = useState({
     name: 'John Doe',
     phone: '123-456-7890',
@@ -42,13 +44,15 @@ const ProfileScreen = () => {
   });
 
 
+
+
   useEffect(() => {
-    const getUser= async ()=>{
-      const userData= await AsyncStorage.getItem('user')
-      const user  =JSON.parse(userData)
+    const getUser = async () => {
+      const userData = await AsyncStorage.getItem('user')
+      const user = JSON.parse(userData)
       if (user) {
-        setProfile({...user,profilePic: 'https://i.ibb.co.com/MVkgLyt/MPS-018-BL-WEB-01-1.jpg',}); // Convert string back to object
-    }
+        setProfile({ ...user, profilePic: 'https://i.ibb.co.com/MVkgLyt/MPS-018-BL-WEB-01-1.jpg', }); // Convert string back to object
+      }
       //console.log(user)
     }
     getUser()
@@ -59,30 +63,37 @@ const ProfileScreen = () => {
     await AsyncStorage.removeItem('authToken');
     await AsyncStorage.removeItem('user');
     Alert.alert('Logout Successful');
-    router.replace('/login')
+    router.push('/login')
   };
+  const handleEditProfile = () => {
+    router.replace('editProfile')
+  }
 
   return (
     <ImageBackground
-    source={require('../../assets/images/profileBg.jpg')} // Adjust the path if necessary
-    style={styles.background}
-  >
-    <View style={styles.container}>
-      <Image
-        source={{ uri: profile.profilePic }}
-        style={styles.profilePic}
-      />
-      <Text style={styles.text}>Name: {profile.name}</Text>
-      <Text style={styles.text}>Phone: {profile.phone}</Text>
-      <Text style={styles.text}>Address: {profile.address}</Text>
-      <Text style={styles.text}>Holding No: {profile.holdingNo}</Text>
+      source={require('../../assets/images/profileBg.jpg')} // Adjust the path if necessary
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <Image
+          source={{ uri: profile.profilePic }}
+          style={styles.profilePic}
+        />
+        <TouchableOpacity onPress={handleEditProfile} style={styles.editProfileBtn}>
+          <Text style={styles.editProfileText}>Edit profile</Text>
+        </TouchableOpacity>
+        <Text style={styles.text}>Name: {profile.name}</Text>
+        <Text style={styles.text}>Phone: {profile.phone}</Text>
+        <Text style={styles.text}>Address: {profile.address}</Text>
+        <Text style={styles.text}>Holding No: {profile.holdingNo}</Text>
 
-      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-        <Text style={styles.logoutText}>Logout</Text>
-      </TouchableOpacity>
-    </View>
-  <StatusBar style='dark'></StatusBar>
-  </ImageBackground>
+        <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
+      </View>
+
+      <StatusBar style='dark'></StatusBar>
+    </ImageBackground>
   );
 };
 
@@ -100,15 +111,26 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   profilePic: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 120,
+    height: 120,
+    borderRadius: 100,
     marginBottom: 20,
   },
   text: {
     fontSize: 18,
     color: '#fff', // White text for better visibility
     marginVertical: 5,
+  },
+  editProfileBtn: {
+
+    backgroundColor: '#0066b2',
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 5,
+  },
+  editProfileText: {
+    color: '#fff',
+    fontSize: 16,
   },
   logoutButton: {
     marginTop: 20,
@@ -121,6 +143,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
   },
+  
 });
 
 export default ProfileScreen;

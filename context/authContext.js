@@ -5,7 +5,8 @@ import { jwtDecode } from 'jwt-decode'
 export const AuthContext= createContext()
 export const AuthProvider = ({children}) => {
     const [userId, setUserId] = useState('')
-    const [value, setvalue] = useState('hello')
+    const [user,setUser]=useState(null)
+
     useEffect(()=>{     
         const fetchUser = async()=>{
             const authToken = await AsyncStorage.getItem('authToken')
@@ -14,11 +15,20 @@ export const AuthProvider = ({children}) => {
             const userId = decodedToken.userId
             setUserId(userId)
         }
+        const getUser = async()=>{
+          const userData = await AsyncStorage.getItem('user');
+          const user = JSON.parse(userData);
+          setUser(user)
+          //console.log(user)
+        }
         fetchUser()
-    })
+        getUser()
+    },[])
+   
+
    
   return (
-    <AuthContext.Provider value={{userId,value}}>
+    <AuthContext.Provider value={{userId,user}}>
       {children}
     </AuthContext.Provider>
   )
