@@ -1,16 +1,23 @@
-import { Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { Alert, Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import { AuthContext } from '../context/authContext';
 import { BASE_URL } from '../utils/constants';
 import { useRouter } from 'expo-router';
+import axios from 'axios';
+import { ActivityIndicator } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const editProfile = () => {
-    const router=useRouter()
+    const router = useRouter()
     const { user } = useContext(AuthContext)
+    const { userId } = useContext(AuthContext)
+
     const [name, setName] = useState(user ? user.name : '');
     const [phoneNumber, setPhoneNumber] = useState(user ? user.phone : '');
     const [address, setAddress] = useState(user ? user.address : '');
     const [holdingNumber, setHoldingNumber] = useState(user ? user.holdingNo : '');
+    const [profilePic, setProfilePic] = useState(user ? user.profilePic : '');
+    const [imageUri, setImageUri] = useState('')
     const [profile, setProfile] = useState({
         name: 'John Doe',
         phone: '123-456-7890',
@@ -18,29 +25,9 @@ const editProfile = () => {
         holdingNo: '45A',
         profilePic: 'https://i.ibb.co.com/MVkgLyt/MPS-018-BL-WEB-01-1.jpg', // Replace with actual image URL or local path
     });
-    const [profilePic, setProfilePic] = useState(null);
-    const [imageUri, setImageUri] = useState('')
-    useEffect(() => {
-        const getUser = async () => {
-            const userData = await AsyncStorage.getItem('user');
-            console.log(userData)
-            const user = JSON.parse(userData);
-            console.log(user)
-            if (user) {
-                setProfile({
-                    ...user,
-                    profilePic: user.profilePic || 'https://i.ibb.co.com/MVkgLyt/MPS-018-BL-WEB-01-1.jpg', // Fallback for profilePic
-                });
-                setName(user.name || ''); // Initialize the state with values from storage
-                setPhoneNumber(user.phone || '');
-                setAddress(user.address || '');
-                setHoldingNumber(user.holdingNo || '');
-            }
+    const [loading, setLoading] = useState(false)
 
-        };
-        getUser();
-        console.log(user.address)
-    }, []);
+  
 
     const pickImage = async () => {
         // Request permission
@@ -62,7 +49,7 @@ const editProfile = () => {
             const imageUri = result.assets[0].uri
             setProfilePic(imageUri); // Save image URI
             setImageUri(imageUri)
-            uploadImageToServer(imageUri)
+            // uploadImageToServer(imageUri)
 
         }
     };
@@ -80,10 +67,67 @@ const editProfile = () => {
         });
 
         const result = await response.json();
-        console.log('Uploaded Image URL:', result.url);
+        //console.log('Uploaded Image URL:', result.url);
+        return result
     };
     const handleSaveChange = async () => {
-        console.log('save pressed')
+        setLoading(true)
+        if (imageUri) {
+            const result = await uploadImageToServer(imageUri)
+            if (result.url) {
+                const data = {
+                    userId: userId,
+                    name: name,
+                    phone: phoneNumber,
+                    address: address,
+                    holdingNo: holdingNumber,
+                    profilePic: result.url
+                }
+                try {
+                    const response = await axios.post(`${BASE_URL}/updateProfile`, data, {
+                        headers: {
+                            'Content-Type': 'application/json', // Ensure the correct header is set for JSON
+                        },
+                    });
+
+
+                    if (response.status == 200) {
+                        Alert.alert('profile updated')
+                        await AsyncStorage.setItem("user",JSON.stringify(response.data.user))
+                        setLoading(false)
+                        router.replace('home/profile')
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+
+            }
+        }
+        else {
+            const data = {
+                userId: userId,
+                name: name,
+                phone: phoneNumber,
+                address: address,
+                holdingNo: holdingNumber,
+                profilePic: profilePic
+            }
+            try {
+                const response = await axios.post(`${BASE_URL}/updateProfile`, data, {
+                    headers: {
+                        'Content-Type': 'application/json', // Ensure the correct header is set for JSON
+                    },
+                });
+
+
+                if (response.status == 200) {
+                    Alert.alert('profile updated')
+                    setLoading(false)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
     }
     const handleCancel = () => {
         console.log('cancel pressed')
@@ -141,22 +185,25 @@ const editProfile = () => {
                             keyboardType="numeric"
                             onChangeText={setHoldingNumber}
                         />
-                       
+
                     </View>
-                    <View style={{ alignItems: 'center', flexDirection:'row',gap:10,justifyContent:'center' }}>
-                            <TouchableOpacity
+                    <View style={{ alignItems: 'center', flexDirection: 'row', gap: 10, justifyContent: 'center' }}>
+                        {
+                            loading ? <ActivityIndicator></ActivityIndicator>: <TouchableOpacity
                                 style={styles.uploadButton}
                                 onPress={handleSaveChange}
                             >
-                                <Text style={{ color: '#fff',textAlign:'center' }}>Save Changes</Text>
+                                <Text style={{ color: '#fff', textAlign: 'center' }}>Save Changes</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity
+                               
+                        }
+                        <TouchableOpacity
                             style={styles.cancelButton}
                             onPress={handleCancel}
                         >
                             <Text style={{ color: '#fff' }}>cancel</Text>
                         </TouchableOpacity>
-                        </View>
+                    </View>
 
                 </ScrollView>
 
@@ -233,7 +280,7 @@ const styles = StyleSheet.create({
 
 
     },
-    cancelButton:{
+    cancelButton: {
         backgroundColor: 'red',
         paddingVertical: 10,
         paddingHorizontal: 20,

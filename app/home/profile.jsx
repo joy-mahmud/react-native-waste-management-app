@@ -51,7 +51,7 @@ const ProfileScreen = () => {
       const userData = await AsyncStorage.getItem('user')
       const user = JSON.parse(userData)
       if (user) {
-        setProfile({ ...user, profilePic: 'https://i.ibb.co.com/MVkgLyt/MPS-018-BL-WEB-01-1.jpg', }); // Convert string back to object
+        setProfile({ ...user }); // Convert string back to object
       }
       //console.log(user)
     }
@@ -66,7 +66,7 @@ const ProfileScreen = () => {
     router.push('/login')
   };
   const handleEditProfile = () => {
-    router.replace('editProfile')
+    router.push('editProfile')
   }
 
   return (
