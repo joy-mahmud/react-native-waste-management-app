@@ -20,16 +20,10 @@ const AppHeader = () => {
         }
         getUser()
     }, []);
-    const handleLogout = async () => {
-        // Perform logout (e.g., remove token from AsyncStorage or context)
-        await AsyncStorage.removeItem('authToken');
-        await AsyncStorage.removeItem('user');
-        Alert.alert('Logout Successful');
-        router.push('/login')
-      };
+
     return (
         <View style={[styles.container, { paddingTop: StatusBar.currentHeight }]}>
-            <SlidingModal logout={handleLogout}/>
+            <SlidingModal/>
             <View style={styles.titleContainer}>
                 <Image
                     style={{ height: 40, aspectRatio: 1, borderRadius:100 }}

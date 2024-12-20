@@ -14,8 +14,9 @@ import {
 import { useRouter } from 'expo-router';
 import { Image } from 'expo-image';
 import { blurhash } from '../utils/constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SlidingModal = ({logout}) => {
+const SlidingModal = () => {
     const [visible, setVisible] = useState(false);
     const translateX = useRef(new Animated.Value(-Dimensions.get('window').width)).current;
     const router = useRouter()
@@ -61,6 +62,16 @@ const SlidingModal = ({logout}) => {
         router.push(route)
         closeModal()
     }
+        const handleLogout = async (route) => {
+      
+            // Perform logout (e.g., remove token from AsyncStorage or context)
+            await AsyncStorage.removeItem('authToken');
+            await AsyncStorage.removeItem('user');
+     
+            // Alert.alert('Logout Successful');
+            router.replace(route)
+            closeModal()
+          };
    
     return (
         <View style={styles.container}>
@@ -104,7 +115,7 @@ const SlidingModal = ({logout}) => {
 
                                 </TouchableOpacity>
                                 <View style={{ backgroundColor: 'rgba(132, 128, 128, 0.5)', height: 1, marginVertical: 5 }}></View>
-                                <TouchableOpacity onPress={logout} style={styles.modalButton}>
+                                <TouchableOpacity onPress={()=>handleLogout('/login')} style={styles.modalButton}>
                                     <Text style={styles.buttonText}>Logout</Text>
 
                                 </TouchableOpacity>
