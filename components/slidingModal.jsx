@@ -100,21 +100,22 @@ const SlidingModal = () => {
                                 </View>
                                 <View style={{ backgroundColor: 'rgba(132, 128, 128, 0.5)', height: 2, marginVertical: 5 }}></View>
 
-                                <TouchableOpacity onPress={() => handleModalButton('home/profile')} style={styles.modalButton}>
+                                <TouchableOpacity onPress={() => handleModalButton('about')} style={styles.modalButton}>
                                     <Text style={styles.buttonText}>About</Text>
 
                                 </TouchableOpacity>
                                 <View style={{ backgroundColor: 'rgba(132, 128, 128, 0.5)', height: 1, marginVertical: 5 }}></View>
-                                <TouchableOpacity onPress={() => handleModalButton('home/profile')} style={styles.modalButton}>
+                                <TouchableOpacity onPress={() => handleModalButton('contact')} style={styles.modalButton}>
                                     <Text style={styles.buttonText}>contact us</Text>
 
                                 </TouchableOpacity>
                                 <View style={{ backgroundColor: 'rgba(132, 128, 128, 0.5)', height: 1, marginVertical: 5 }}></View>
-                                <TouchableOpacity onPress={() => handleModalButton('home')} style={styles.modalButton}>
-                                    <Text style={styles.buttonText}>Terms of service</Text>
+                                <TouchableOpacity onPress={() => handleModalButton('awarness')} style={styles.modalButton}>
+                                    <Text style={styles.buttonText}>Awarness and updates</Text>
 
                                 </TouchableOpacity>
                                 <View style={{ backgroundColor: 'rgba(132, 128, 128, 0.5)', height: 1, marginVertical: 5 }}></View>
+                                
                                 <TouchableOpacity onPress={()=>handleLogout('/login')} style={styles.modalButton}>
                                     <Text style={styles.buttonText}>Logout</Text>
 

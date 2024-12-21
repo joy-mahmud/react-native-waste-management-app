@@ -18,21 +18,22 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import dayjs from 'dayjs';
-import{BASE_URL} from "../../../utils/constants"
-import { Link,router, useGlobalSearchParams, useRouter } from 'expo-router'
+import { BASE_URL } from "../../../utils/constants"
+import { Link, router, useGlobalSearchParams, useRouter } from 'expo-router'
 import axios from 'axios';
 import { AuthContext } from '../../../context/authContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FormInputs = () => {
-    const{userId}=useContext(AuthContext)
+    const { userId } = useContext(AuthContext)
     const [radioValue, setRadioValue] = useState('option1');
     const [wasteType, setWasteType] = useState('');
     const [wasteAmount, setWasteAmount] = useState('');
+    const [unit, setUnit] = useState('kg');
     const [modalVisible, setModalVisible] = useState(false);
     const [time, setTime] = useState("");
     const [show, setShow] = useState(false);
-    const [rewardPoints,setRewardPoints]=useState(null)
+    const [rewardPoints, setRewardPoints] = useState(null)
     const { date } = useGlobalSearchParams()
 
     const onChange = (event, selectedDate) => {
@@ -41,27 +42,32 @@ const FormInputs = () => {
         const formattedTime = dayjs(currentDate).format('hh:mm A')
         setTime(formattedTime);
     };
-    const handleSubmit = async() => {
-        const data={
-            userId:userId,
-            wasteType:wasteType,
-            time:time,
-            date:date,
-            points:100,
-            rulesFollow:radioValue
+    const handleWasteAmountChange = (value) => {
+        // Ensure only numeric values are entered
+        const numericValue = value.replace(/[^0-9.]/g, '');
+        setWasteAmount(numericValue);
+    };
+    const handleSubmit = async () => {
+        const data = {
+            userId: userId,
+            wasteType: wasteType,
+            time: time,
+            date: date,
+            points: 20,
+            rulesFollow: radioValue
         }
         // Alert.alert(`you are rewarded with 200 points`)
-        const response = await axios.post(`${BASE_URL}/addTask`,data)
-        if(response.status==200){
-            await AsyncStorage.setItem('user',JSON.stringify(response.data.user));
+        const response = await axios.post(`${BASE_URL}/addTask`, data)
+        if (response.status == 200) {
+            await AsyncStorage.setItem('user', JSON.stringify(response.data.user));
             setRewardPoints(response.data.user.points)
             setModalVisible(true)
             console.log(response.data.user)
-           
-        }else{
+
+        } else {
             Alert.alert("Failed to add task! Try again.")
         }
-       
+
 
     }
     return (
@@ -113,21 +119,44 @@ const FormInputs = () => {
                             onValueChange={(itemValue) => setWasteType(itemValue)}
                         >
                             <Picker.Item label="Select..." value="" />
-                            <Picker.Item label="Green for organic waste" value="green" />
-                            <Picker.Item label="Red for biomedical waste" value="red" />
-                            <Picker.Item label="Blue for dry recyclables" value="blue" />
+                            <Picker.Item label="Biodegradable waste" value="biodegradable" />
+                            <Picker.Item label="Non-Biodegradable wastee" value="non-biodegradable" />
+                            <Picker.Item label="Solid Waste" value="solid-waste" />
+                            <Picker.Item label="Organic Waste" value="organic-waste" />
                         </Picker>
                     </View>
 
                     {/* Number Input */}
-                    <Text style={styles.label}>Enter Waste amount:</Text>
+                    {/* <Text style={styles.label}>Enter Waste amount:</Text>
                     <TextInput
                         style={styles.numberInput}
                         keyboardType="numeric"
                         value={wasteAmount}
                         onChangeText={setWasteAmount}
                         placeholder="Enter amount"
-                    />
+                    /> */}
+                    <View style={styles.inlineContainer}>
+                        <Text style={styles.label}>
+                            Enter Waste Amount: {wasteAmount || '0'} {unit}
+                        </Text>
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.wasteInput}
+                            keyboardType="numeric"
+                            value={wasteAmount}
+                            onChangeText={handleWasteAmountChange}
+                            placeholder="Enter amount"
+                        />
+                        <Picker
+                            selectedValue={unit}
+                            style={styles.picker}
+                            onValueChange={(itemValue) => setUnit(itemValue)}
+                        >
+                            <Picker.Item label="kg" value="kg" />
+                            <Picker.Item label="gm" value="gm" />
+                        </Picker>
+                    </View>
 
                     {/* Radio Input */}
                     <Text style={styles.label}>Did you follow the waste management rules?</Text>
@@ -172,14 +201,14 @@ const FormInputs = () => {
                         onRequestClose={() => {
                             // Handles back button behavior on Android
                             setModalVisible(false);
-                            router.replace('home/homeCalendar')
+                            router.replace('home/homePage')
                         }}
                     >
                         <View style={styles.modalBackground}>
                             <View style={styles.modalContainer}>
                                 <Text style={styles.modalTitle}>Excellent !!!</Text>
                                 <Text style={styles.modalContent}>
-                                    You earn <Text style={{fontsize:20,fontWeight:'bold'}}>100</Text> Points.
+                                    You earn <Text style={{ fontsize: 20, fontWeight: 'bold' }}>20</Text> Points.
                                 </Text>
 
                                 {/* Button to Close Modal */}
@@ -259,6 +288,30 @@ const styles = StyleSheet.create({
         fontSize: 16,
         height: 50,
         marginBottom: 15
+    },
+    inlineContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+
+    },
+
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10
+    },
+    wasteInput: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 8,
+        padding: 10,
+        fontSize: 16,
+        flex: 1,
+        marginRight: 10,
+    },
+    picker: {
+        width: 120,
+        height: 50,
     },
     openButton: {
         backgroundColor: '#6A0DAD',

@@ -82,7 +82,7 @@ const RewardScreen = () => {
         onRequestClose={() => {
           // Handles back button behavior on Android
           setModalVisible(false);
-          router.replace('home/homeCalendar')
+          router.replace('home/homePage')
         }}
       >
         <View style={styles.modalBackground}>

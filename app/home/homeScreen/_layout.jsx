@@ -7,7 +7,7 @@ const HomeInnerLayout = () => {
   return (
  
       <Stack>
-        <Stack.Screen name='homeCalendar' options={{ headerShown: false }} />
+        <Stack.Screen name='homePage' options={{ headerShown: false }} />
         <Stack.Screen name='formInputs' options={{headerShown:false}} />
         {/* options={{ title: 'Fill out the information', headerTintColor: "#6A0DAD", animation: 'slide_from_right' }} */}
         
