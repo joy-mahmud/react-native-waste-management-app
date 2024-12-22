@@ -120,7 +120,7 @@ const FormInputs = () => {
                         >
                             <Picker.Item label="Select..." value="" />
                             <Picker.Item label="Biodegradable waste" value="biodegradable" />
-                            <Picker.Item label="Non-Biodegradable wastee" value="non-biodegradable" />
+                            <Picker.Item label="Non-Biodegradable Waste" value="non-biodegradable" />
                             <Picker.Item label="Solid Waste" value="solid-waste" />
                             <Picker.Item label="Organic Waste" value="organic-waste" />
                         </Picker>

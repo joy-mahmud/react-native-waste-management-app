@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useContext } from 'react';
 import {AuthContext} from "../../context/authContext"
 import AppHeader from '../../components/header';
@@ -33,6 +34,15 @@ const {user}=useContext(AuthContext)
           title: 'My Points',
           headerTitleAlign:"center",
           tabBarIcon: ({ color }) => <FontAwesome6 name="coins" size={24} color={color}/>,
+        }}
+      />
+       <Tabs.Screen
+        name="settings"
+        options={{
+          title: 'Settings',
+          headerTitle:'Select language',
+          headerTitleAlign:"center",
+          tabBarIcon: ({ color }) => <Ionicons name="settings" size={24} color={color} />,
         }}
       />
      

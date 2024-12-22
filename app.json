@@ -1,21 +1,31 @@
 {
   "expo": {
-    "name": "waste-management-app",
+    "name": "MZDP",
     "slug": "waste-management-app",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/images/garbage-can.png",
+    "icon": "./assets/images/logo.jpeg",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/garbage-can.png",
-        "backgroundColor": "#ffffff"
-      },
+        "adaptiveIcon": {
+          "foregroundImage": "./assets/images/logo.jpeg",
+          "backgroundColor": "#ffffff"
+        },
+        "splash": {
+          "image": "./assets/images/splash-icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        },
       "package": "com.joyahmed.wastemanagementapp"
     },
     "web": {
@@ -28,8 +38,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/garbage-can.png",
-          "imageWidth": 200,
+          "image": "./assets/images/splash-icon.png",
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
@@ -46,5 +55,6 @@
         "projectId": "5684ff28-7159-40dc-8e27-a764963eefc3"
       }
     }
+ 
   }
 }

@@ -25,7 +25,6 @@ const Home = () => {
 
   return (
     <ScrollView
-      style={styles.container}
       contentContainerStyle={styles.contentContainer}
       nestedScrollEnabled
       showsVerticalScrollIndicator={false}
@@ -52,10 +51,10 @@ const Home = () => {
         <Text style={styles.buttonText}>Next</Text>
         <MaterialIcons name="keyboard-arrow-right" size={24} color="#fff" />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => router.push('/test')} style={styles.button}>
+      {/* <TouchableOpacity onPress={() => router.push('/test')} style={styles.button}>
         <Text style={styles.buttonText}>Test</Text>
         <MaterialIcons name="keyboard-arrow-right" size={24} color="#fff" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <SponsoredBy />
       <TrackImpact />
       <NearestRecycle />
@@ -74,7 +73,9 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 10,
+    backgroundColor: '#f9f9f9',
     alignItems: 'center',
+    flexGrow:1
   },
   headerText: {
     textAlign: 'center',

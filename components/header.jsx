@@ -22,7 +22,7 @@ const AppHeader = () => {
     }, []);
 
     return (
-        <View style={[styles.container, { paddingTop: StatusBar.currentHeight }]}>
+        <View style={[styles.container, { paddingTop:50 }]}>
             <SlidingModal/>
             <View style={styles.titleContainer}>
                 <Image

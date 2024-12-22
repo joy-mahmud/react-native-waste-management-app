@@ -1,33 +1,42 @@
-import { Alert, Image, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import { AuthContext } from '../context/authContext';
-import { BASE_URL } from '../utils/constants';
+import { BASE_URL, blurhash } from '../utils/constants';
 import { useRouter } from 'expo-router';
 import axios from 'axios';
 import { ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Image } from 'expo-image';
 const editProfile = () => {
     const router = useRouter()
-    const { user } = useContext(AuthContext)
+    // const { user } = useContext(AuthContext)
     const { userId } = useContext(AuthContext)
 
-    const [name, setName] = useState(user ? user.name : '');
-    const [phoneNumber, setPhoneNumber] = useState(user ? user.phone : '');
-    const [address, setAddress] = useState(user ? user.address : '');
-    const [holdingNumber, setHoldingNumber] = useState(user ? user.holdingNo : '');
-    const [profilePic, setProfilePic] = useState(user ? user.profilePic : '');
+    const [name, setName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [address, setAddress] = useState('');
+    const [holdingNumber, setHoldingNumber] = useState('');
+    const [profilePic, setProfilePic] = useState('');
     const [imageUri, setImageUri] = useState('')
-    const [profile, setProfile] = useState({
-        name: 'John Doe',
-        phone: '123-456-7890',
-        address: '123 Main St',
-        holdingNo: '45A',
-        profilePic: 'https://i.ibb.co.com/MVkgLyt/MPS-018-BL-WEB-01-1.jpg', // Replace with actual image URL or local path
-    });
     const [loading, setLoading] = useState(false)
 
-  
+    useEffect(() => {
+        const getUser = async () => {
+            const userData = await AsyncStorage.getItem('user')
+            const user = JSON.parse(userData)
+            if (user) {
+                setName(user.name); // Convert string back to object
+                setPhoneNumber(user.phone); // Convert string back to object
+                setAddress(user.address);
+                setHoldingNumber(user.holdingNo)
+                setProfilePic(user.profilePic) // Convert string back to object
+            }
+            //console.log(user)
+        }
+        getUser()
+    }, []);
+
 
     const pickImage = async () => {
         // Request permission
@@ -58,7 +67,7 @@ const editProfile = () => {
         data.append('file', {
             uri: imageUri,
             type: 'image/jpg', // Adjust type if needed
-            name: user.name,
+            name: name,
         });
 
         const response = await fetch(`${BASE_URL}/upload`, {
@@ -93,7 +102,7 @@ const editProfile = () => {
 
                     if (response.status == 200) {
                         Alert.alert('profile updated')
-                        await AsyncStorage.setItem("user",JSON.stringify(response.data.user))
+                        await AsyncStorage.setItem("user", JSON.stringify(response.data.user))
                         setLoading(false)
                         router.replace('home/profile')
                     }
@@ -122,7 +131,9 @@ const editProfile = () => {
 
                 if (response.status == 200) {
                     Alert.alert('profile updated')
+                    await AsyncStorage.setItem("user", JSON.stringify(response.data.user))
                     setLoading(false)
+                    router.replace('home/profile')
                 }
             } catch (error) {
                 console.log(error)
@@ -130,7 +141,7 @@ const editProfile = () => {
         }
     }
     const handleCancel = () => {
-        console.log('cancel pressed')
+        //console.log('cancel pressed')
         router.replace('home/profile')
     }
     return (
@@ -143,8 +154,10 @@ const editProfile = () => {
                 <ScrollView >
                     <View style={{ alignItems: 'center', alignSelf: 'center' }}>
                         <Image
-                            source={profilePic ? { uri: profilePic } : { uri: profile.profilePic }}
-                            style={styles.profilePic}
+                            style={{ height: 120, aspectRatio: 1, marginBottom: 20, borderRadius: 100 }}
+                            source={profilePic}
+                            placeholder={{ blurhash: blurhash || 'LEHV6nWB2yk8pyo0adR*.7kCMdnj' }}
+                            transition={500}
                         />
 
                         {/* Button to Close Modal */}
@@ -189,13 +202,13 @@ const editProfile = () => {
                     </View>
                     <View style={{ alignItems: 'center', flexDirection: 'row', gap: 10, justifyContent: 'center' }}>
                         {
-                            loading ? <ActivityIndicator></ActivityIndicator>: <TouchableOpacity
+                            loading ? <View style={styles.activity}><ActivityIndicator></ActivityIndicator></View> : <TouchableOpacity
                                 style={styles.uploadButton}
                                 onPress={handleSaveChange}
                             >
                                 <Text style={{ color: '#fff', textAlign: 'center' }}>Save Changes</Text>
                             </TouchableOpacity>
-                               
+
                         }
                         <TouchableOpacity
                             style={styles.cancelButton}
@@ -237,6 +250,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 15,
         backgroundColor: '#fff',
+    },
+    activity: {
+        paddingHorizontal: 50,
+        paddingVertical: 8,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 8,
     },
     label: {
         fontSize: 16,
