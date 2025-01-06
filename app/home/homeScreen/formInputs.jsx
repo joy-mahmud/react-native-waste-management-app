@@ -62,7 +62,7 @@ const FormInputs = () => {
             await AsyncStorage.setItem('user', JSON.stringify(response.data.user));
             setRewardPoints(response.data.user.points)
             setModalVisible(true)
-            console.log(response.data.user)
+            //console.log(response.data.user)
 
         } else {
             Alert.alert("Failed to add task! Try again.")

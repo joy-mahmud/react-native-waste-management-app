@@ -8,11 +8,14 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import SponsoredBy from '../../../components/sponsor';
 import NearestRecycle from '../../../components/nearestRecycle';
 import TrackImpact from '../../../components/TrackImpact';
+import { useTranslation } from 'react-i18next';
+import '../../../i18n'; // Import the i18n configuration
 
 const Home = () => {
   const currentDate = dayjs().format('YYYY-MM-DD');
   const [date, setDate] = useState(currentDate);
   const router = useRouter();
+  const { t, i18n } = useTranslation();
 
   const handleDateChange = (selectedDate) => {
     setDate(selectedDate);
@@ -29,7 +32,7 @@ const Home = () => {
       nestedScrollEnabled
       showsVerticalScrollIndicator={false}
     >
-      <Text style={styles.headerText}>Select a date to complete task</Text>
+      <Text style={styles.headerText}>{t('home.select_date')}</Text>
       <DatePicker
         options={{
           backgroundColor: '#090C08',
@@ -48,7 +51,7 @@ const Home = () => {
         onDateChange={handleDateChange}
       />
       <TouchableOpacity onPress={handleNext} style={styles.button}>
-        <Text style={styles.buttonText}>Next</Text>
+        <Text style={styles.buttonText}>{t('home.next')}</Text>
         <MaterialIcons name="keyboard-arrow-right" size={24} color="#fff" />
       </TouchableOpacity>
       {/* <TouchableOpacity onPress={() => router.push('/test')} style={styles.button}>

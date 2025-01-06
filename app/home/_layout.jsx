@@ -7,22 +7,24 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useContext } from 'react';
 import {AuthContext} from "../../context/authContext"
 import AppHeader from '../../components/header';
-
+import { useTranslation } from 'react-i18next';
+import '../../i18n'; // Import the i18n configuration
 
 export default function TabLayout() {
 const {user}=useContext(AuthContext)
+   const { t } = useTranslation();
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: '#6A0DAD' }}>
       <Tabs.Screen
         name="homeScreen"
         options={{
-            title: 'Home',
+            title:t('tabs.home'),
             header:()=><AppHeader user={user}/>,
             tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
           }}
       />
        <Tabs.Screen
-        name="profile"
+        name={t('tabs.profile')}
          options={{
             headerShown:false,
             tabBarIcon: ({ color }) => <MaterialCommunityIcons name="account" size={28} color={color} />,
@@ -31,7 +33,7 @@ const {user}=useContext(AuthContext)
       <Tabs.Screen
         name="rewards"
         options={{
-          title: 'My Points',
+          title: t('tabs.points'),
           headerTitleAlign:"center",
           tabBarIcon: ({ color }) => <FontAwesome6 name="coins" size={24} color={color}/>,
         }}
@@ -39,7 +41,7 @@ const {user}=useContext(AuthContext)
        <Tabs.Screen
         name="settings"
         options={{
-          title: 'Settings',
+          title: t('tabs.settings'),
           headerTitle:'Select language',
           headerTitleAlign:"center",
           tabBarIcon: ({ color }) => <Ionicons name="settings" size={24} color={color} />,

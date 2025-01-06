@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Button, Text } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { useTranslation } from 'react-i18next';
+import '../i18n'; // Import the i18n configuration
 
 const TrackImpact = () => {
     const [recycle, setRecycle] = useState(80);
     const [compost, setCompost] = useState(20);
     const [trash, setTrash] = useState(10);
+    const { t, i18n } = useTranslation();
 
 
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Track your Impact and view Progress</Text>
+            <Text style={styles.title}>{t('home.track_impact')}</Text>
             <View style={styles.progressBarContainer}>
                 <AnimatedCircularProgress
                     size={90} // Diameter of the circular progress

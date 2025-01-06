@@ -1,12 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import LanguageSwitcher from '../../components/LanguageSwitcher'
 
 const settings = () => {
   return (
     <View style={styles.container}>
-      <Text style={{textAlign:'center'}}>
-        select language
-      </Text>
+      <LanguageSwitcher/>
     </View>
   )
 }

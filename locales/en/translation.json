@@ -1,0 +1,19 @@
+{
+    "settings": {
+        "select_language": "Select language",
+        "change_language": "Change Language"
+    },
+    "tabs":{
+        "home":"Home",
+        "profile":"Profile",
+        "points":"My Points",
+        "settings":"Settings"
+    },
+    "home":{
+        "select_date":"Select a date to complete task",
+        "next":"Next",
+        "sponsor":"Sponsored by",
+        "track_impact":"Track your Impact and view Progress",
+        "find_bin":"Find nearest collection center or bin"
+    }
+}

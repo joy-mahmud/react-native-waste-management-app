@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { blurhash } from '../utils/constants';
 import { Image } from 'expo-image';
+import { useTranslation } from 'react-i18next';
+import '../i18n'; // Import the i18n configuration
 
 // Import images statically
 import sponsorALogo from '../assets/images/logo1.jpg';
@@ -17,9 +19,10 @@ const sponsors = [
 ];
 
 const SponsoredBy = () => {
+     const { t, i18n } = useTranslation();
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Sponsored By</Text>
+            <Text style={styles.title}>{t('home.sponsor')}</Text>
             <FlatList
                 data={sponsors}
                 renderItem={({ item }) => (

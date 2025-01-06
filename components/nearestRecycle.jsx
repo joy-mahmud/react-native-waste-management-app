@@ -2,11 +2,13 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { blurhash } from '../utils/constants';
 import { Image } from 'expo-image';
-
+import { useTranslation } from 'react-i18next';
+import '../i18n'; // Import the i18n configuration
 const NearestRecycle = () => {
+        const { t, i18n } = useTranslation();
     return (
         <View style={ styles.container}>
-            <Text style={styles.title}>Find nearest collection center or bin</Text>
+            <Text style={styles.title}>{t('home.find_bin')}</Text>
             <View style={styles.innerContainer}>
                 <View style={styles.binCard}>
                     <View style={styles.imgContainer}>
