@@ -30,11 +30,12 @@ import { View, Text, Button, StyleSheet, Image, TouchableOpacity, Alert, ImageBa
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
-
+import { useTranslation } from 'react-i18next';
+import '../../i18n'; // Import the i18n configuration
 
 const ProfileScreen = () => {
   const router = useRouter()
-
+  const { t, i18n } = useTranslation();
   const [profile, setProfile] = useState({
     name: 'John Doe',
     phone: '123-456-7890',
@@ -80,15 +81,15 @@ const ProfileScreen = () => {
           style={styles.profilePic}
         />
         <TouchableOpacity onPress={handleEditProfile} style={styles.editProfileBtn}>
-          <Text style={styles.editProfileText}>Edit profile</Text>
+          <Text style={styles.editProfileText}>{t('profile.edit_profile')}</Text>
         </TouchableOpacity>
-        <Text style={styles.text}>Name: {profile.name}</Text>
-        <Text style={styles.text}>Phone: {profile.phone}</Text>
-        <Text style={styles.text}>Address: {profile.address}</Text>
-        <Text style={styles.text}>Holding No: {profile.holdingNo}</Text>
+        <Text style={styles.text}>{t('profile.name')} {profile.name}</Text>
+        <Text style={styles.text}>{t('profile.phone')} {profile.phone}</Text>
+        <Text style={styles.text}>{t('profile.address')} {profile.address}</Text>
+        <Text style={styles.text}>{t('profile.holding_no')} {profile.holdingNo}</Text>
 
         <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-          <Text style={styles.logoutText}>Logout</Text>
+          <Text style={styles.logoutText}>{t('profile.logout')}</Text>
         </TouchableOpacity>
       </View>
 

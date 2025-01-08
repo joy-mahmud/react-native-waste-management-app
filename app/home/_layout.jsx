@@ -24,8 +24,9 @@ const {user}=useContext(AuthContext)
           }}
       />
        <Tabs.Screen
-        name={t('tabs.profile')}
+        name="profile"
          options={{
+          title: t('tabs.profile'),
             headerShown:false,
             tabBarIcon: ({ color }) => <MaterialCommunityIcons name="account" size={28} color={color} />,
           }}
@@ -42,7 +43,7 @@ const {user}=useContext(AuthContext)
         name="settings"
         options={{
           title: t('tabs.settings'),
-          headerTitle:'Select language',
+          headerTitle: t('tabs.settings'),
           headerTitleAlign:"center",
           tabBarIcon: ({ color }) => <Ionicons name="settings" size={24} color={color} />,
         }}

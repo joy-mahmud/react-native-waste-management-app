@@ -3,17 +3,80 @@
         "select_language": "Select language",
         "change_language": "Change Language"
     },
-    "tabs":{
-        "home":"Home",
-        "profile":"Profile",
-        "points":"My Points",
-        "settings":"Settings"
+    "tabs": {
+        "home": "Home",
+        "profile": "Profile",
+        "points": "My Points",
+        "settings": "Settings"
     },
-    "home":{
-        "select_date":"Select a date to complete task",
-        "next":"Next",
-        "sponsor":"Sponsored by",
-        "track_impact":"Track your Impact and view Progress",
-        "find_bin":"Find nearest collection center or bin"
+    "home": {
+        "select_date": "Select a date to complete task",
+        "next": "Next",
+        "sponsor": "Sponsored by",
+        "track_impact": "Track your Impact and view Progress",
+        "find_bin": "Find nearest collection center or bin"
+    },
+    "task_input": {
+        "time": "When did you use the bin?",
+        "select_time": "select time...",
+        "type": "Waste Type:",
+        "select_type": "select type...",
+        "amount": "Enter waste amount:",
+        "placeholder_amount": "Enter amount",
+        "rule": "Did you followed the waste management rules?",
+        "yes": "Yes",
+        "no": "No",
+        "submit": "submit",
+        "excellent": "Excellent !!!",
+        "earn": "You have earned 20 points",
+        "ok": "OK"
+    },
+    "profile": {
+        "edit_profile": "Edit profile:",
+        "name": "Name:",
+        "phone": "Phone:",
+        "address": "Address:",
+        "holding_no": "Holding No:",
+        "logout": "Logout"
+    },
+    "edit_profile": {
+        "upload_photo": "Upload a new photo",
+        "name": "Name:",
+        "phone": "Phone:",
+        "address": "Address:",
+        "holding_no": "Holding No:",
+        "save": "Save changes",
+        "cancel": "Cancel"
+    },
+    "reward": {
+        "reward_points": "Your reward points",
+        "points": "Points",
+        "earn_gift": "EARN A GIFT",
+        "congrats": "Congrats !!!",
+        "you_won": "You won a ",
+        "ok": "OK",
+        "alert_msg": "You need at least 500 points to earn a gift"
+    },
+    "sidebar": {
+        "screens": {
+            "about": "About",
+            "contact": "Contact us",
+            "awarness": "Awarness and updates",
+            "logout": "Logout"
+        },
+        "about": {
+            "title": "About Us",
+            "title_content": "Welcome to MZDP! We are dedicated to providing you with the best experience for [insert purpose of your app, e.g., 'managing deliveries', 'exploring local events']. Our mission is to make your life easier and more efficient with innovative solutions and user-friendly interfaces.",
+            "feature": "Features",
+            "feature_content1": "- Easy to use and navigate.",
+            "feature_content2": "- Secure and reliable.",
+            "feature_content3": "- Customizable to suit your needs.",
+            "feature_content4": "- Real-time updates and notifications.",
+            "contact": "Contact us",
+            "contact_content": "Have questions, feedback, or need support? Feel free to reach out to us:",
+            "email": "Email",
+            "phone": "Phone",
+            "website": "Website"
+        }
     }
 }

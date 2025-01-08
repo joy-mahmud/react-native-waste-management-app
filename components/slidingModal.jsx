@@ -15,8 +15,11 @@ import { useRouter } from 'expo-router';
 import { Image } from 'expo-image';
 import { blurhash } from '../utils/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTranslation } from 'react-i18next';
+import '../i18n'; // Import the i18n configuration
 
 const SlidingModal = () => {
+     const { t, i18n } = useTranslation();
     const [visible, setVisible] = useState(false);
     const translateX = useRef(new Animated.Value(-Dimensions.get('window').width)).current;
     const router = useRouter()
@@ -101,23 +104,23 @@ const SlidingModal = () => {
                                 <View style={{ backgroundColor: 'rgba(132, 128, 128, 0.5)', height: 2, marginVertical: 5 }}></View>
 
                                 <TouchableOpacity onPress={() => handleModalButton('about')} style={styles.modalButton}>
-                                    <Text style={styles.buttonText}>About</Text>
+                                    <Text style={styles.buttonText}>{t('sidebar.screens.about')}</Text>
 
                                 </TouchableOpacity>
                                 <View style={{ backgroundColor: 'rgba(132, 128, 128, 0.5)', height: 1, marginVertical: 5 }}></View>
                                 <TouchableOpacity onPress={() => handleModalButton('contact')} style={styles.modalButton}>
-                                    <Text style={styles.buttonText}>contact us</Text>
+                                    <Text style={styles.buttonText}>{t('sidebar.screens.contact')}</Text>
 
                                 </TouchableOpacity>
                                 <View style={{ backgroundColor: 'rgba(132, 128, 128, 0.5)', height: 1, marginVertical: 5 }}></View>
                                 <TouchableOpacity onPress={() => handleModalButton('awarness')} style={styles.modalButton}>
-                                    <Text style={styles.buttonText}>Awarness and updates</Text>
+                                    <Text style={styles.buttonText}>{t('sidebar.screens.awarness')}</Text>
 
                                 </TouchableOpacity>
                                 <View style={{ backgroundColor: 'rgba(132, 128, 128, 0.5)', height: 1, marginVertical: 5 }}></View>
                                 
                                 <TouchableOpacity onPress={()=>handleLogout('/login')} style={styles.modalButton}>
-                                    <Text style={styles.buttonText}>Logout</Text>
+                                    <Text style={styles.buttonText}>{t('sidebar.screens.logout')}</Text>
 
                                 </TouchableOpacity>
 

@@ -8,11 +8,14 @@ import axios from 'axios';
 import { ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Image } from 'expo-image';
+import { useTranslation } from 'react-i18next';
+import '../i18n'; // Import the i18n configuration
+
 const editProfile = () => {
+    const { t, i18n } = useTranslation();
     const router = useRouter()
     // const { user } = useContext(AuthContext)
     const { userId } = useContext(AuthContext)
-
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [address, setAddress] = useState('');
@@ -165,18 +168,18 @@ const editProfile = () => {
                             style={styles.uploadButton}
                             onPress={pickImage}
                         >
-                            <Text style={{ color: '#fff' }}>upload new photo</Text>
+                            <Text style={{ color: '#fff' }}>{t('edit_profile.upload_photo')}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexGrow: 1, width: "100%" }}>
-                        <Text style={styles.label}>Name</Text>
+                        <Text style={styles.label}>{t('edit_profile.name')}</Text>
                         <TextInput
                             style={styles.input}
                             value={name} // Shows the default value from AsyncStorage
                             onChangeText={setName}
                         />
 
-                        <Text style={styles.label}>Phone Number</Text>
+                        <Text style={styles.label}>{t('edit_profile.phone')}</Text>
                         <TextInput
                             style={styles.input}
                             value={phoneNumber}
@@ -184,14 +187,14 @@ const editProfile = () => {
                             onChangeText={setPhoneNumber}
                         />
 
-                        <Text style={styles.label}>Address</Text>
+                        <Text style={styles.label}>{t('edit_profile.address')}</Text>
                         <TextInput
                             style={styles.input}
                             value={address}
                             onChangeText={setAddress}
                         />
 
-                        <Text style={styles.label}>Holding Number</Text>
+                        <Text style={styles.label}>{t('edit_profile.holding_no')}</Text>
                         <TextInput
                             style={styles.input}
                             value={holdingNumber}
@@ -206,7 +209,7 @@ const editProfile = () => {
                                 style={styles.uploadButton}
                                 onPress={handleSaveChange}
                             >
-                                <Text style={{ color: '#fff', textAlign: 'center' }}>Save Changes</Text>
+                                <Text style={{ color: '#fff', textAlign: 'center' }}>{t('edit_profile.save')}</Text>
                             </TouchableOpacity>
 
                         }
@@ -214,7 +217,7 @@ const editProfile = () => {
                             style={styles.cancelButton}
                             onPress={handleCancel}
                         >
-                            <Text style={{ color: '#fff' }}>cancel</Text>
+                            <Text style={{ color: '#fff' }}>{t('edit_profile.cancel')}</Text>
                         </TouchableOpacity>
                     </View>
 

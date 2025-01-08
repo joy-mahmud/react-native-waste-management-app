@@ -5,8 +5,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image, Alert, Modal } from 'react-native';
 import { BASE_URL } from '../../utils/constants';
 import { AuthContext } from '../../context/authContext';
+import { useTranslation } from 'react-i18next';
+import '../../i18n'; // Import the i18n configuration
 
 const RewardScreen = () => {
+   const { t, i18n } = useTranslation();
   const { rewardPoints } = useGlobalSearchParams()
   const [points, setpoints] = useState(rewardPoints?rewardPoints:0)
   const [modalVisible, setModalVisible] = useState(false);
@@ -35,7 +38,7 @@ const RewardScreen = () => {
   const handleEarnGift = async() => {
     // console.log('Button Pressed!');
     if (points<500) {
-      Alert.alert("you need at least 500 points to earn a gift")
+      Alert.alert(t('reward.alert_msg'))
     } else {
       const numbers = [0, 1,2]; // Define the set
       const randomIndex = Math.floor(Math.random() * numbers.length); // Get a random index
@@ -62,17 +65,17 @@ const RewardScreen = () => {
       style={styles.backgroundImage}
     >
       <View style={styles.container}>
-        <Text style={styles.title}>Your Reward Points</Text>
+        <Text style={styles.title}>{t('reward.reward_points')}</Text>
         <View style={styles.rewardContainer}>
           <Image
             source={require('../../assets/images/star.png')}
             style={styles.star}
           />
           <Text style={styles.rewardPoints}>{points}</Text>
-          <Text style={styles.rewardLabel}>Points</Text>
+          <Text style={styles.rewardLabel}>{t('reward.points')}</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={handleEarnGift}>
-          <Text style={styles.buttonText}>EARN A GIFT</Text>
+          <Text style={styles.buttonText}>{t('reward.earn_gift')}</Text>
         </TouchableOpacity>
       </View>
       <Modal
@@ -87,9 +90,9 @@ const RewardScreen = () => {
       >
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Congrats !!!</Text>
+            <Text style={styles.modalTitle}>{t('reward.congrats')}</Text>
             <Text style={styles.modalContent}>
-              You won a <Text style={{ fontsize: 20, fontWeight: 'bold' }}>{gift?.name}</Text>
+              {t('reward.you_won')} <Text style={{ fontsize: 20, fontWeight: 'bold' }}>{gift?.name}</Text>
             </Text>
             {gift && <Image
               source={gift.url}
@@ -105,7 +108,7 @@ const RewardScreen = () => {
 
               }}
             >
-              <Text style={styles.buttonText}>OK</Text>
+              <Text style={styles.buttonText}>{t('reward.ok')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -131,6 +134,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
     marginBottom: 30,
+    textAlign:'center'
   },
   rewardContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.9)',

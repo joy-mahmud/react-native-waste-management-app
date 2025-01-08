@@ -5,7 +5,10 @@ import { AuthContext, AuthProvider } from "../context/authContext"
 import { useContext, useEffect } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import { useTranslation } from 'react-i18next';
+import '../i18n'; // Import the i18n configuration
 export default function RootLayout() {
+  const { t, i18n } = useTranslation(); 
   const segments = useSegments()
   const router = useRouter()
 
@@ -44,7 +47,7 @@ export default function RootLayout() {
         <Stack.Screen name="register" options={{ headerShown: false }} />
         <Stack.Screen name="login" options={{ headerShown: false }} />
         <Stack.Screen name="editProfile" options={{ headerShown: false }} />
-        <Stack.Screen name="about" options={{ headerTitle:"About Us",headerTitleAlign:'center' }} />
+        <Stack.Screen name="about" options={{ headerTitle:t('sidebar.screens.about'),headerTitleAlign:'center' }} />
         <Stack.Screen name="contact" options={{ headerTitle:"Contact Us",headerTitleAlign:'center' }} />
         <Stack.Screen name="awarness" options={{ headerTitle:"Awarness and updates",headerTitleAlign:'center' }} />
         <Stack.Screen name="test" options={{ headerTitle:"test",headerTitleAlign:'center' }} />

@@ -2,8 +2,10 @@ import { Image } from 'expo-image';
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView, } from 'react-native';
 import { blurhash } from '../utils/constants';
-
+import { useTranslation } from 'react-i18next';
+import '../i18n'; // Import the i18n configuration
 const AboutPage = () => {
+    const { t } = useTranslation();
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.headerContainer}>
@@ -16,28 +18,27 @@ const AboutPage = () => {
                 <Text style={styles.appName}>MZDP</Text>
             </View>
 
-            <Text style={styles.sectionTitle}>About Us</Text>
+            <Text style={styles.sectionTitle}>{t('sidebar.about.title')}</Text>
             <Text style={styles.description}>
-                Welcome to MZDP! We are dedicated to providing you with the best experience for [insert purpose of your app, e.g., "managing deliveries", "exploring local events"].
-                Our mission is to make your life easier and more efficient with innovative solutions and user-friendly interfaces.
+              {t('sidebar.about.title_content')}
             </Text>
 
-            <Text style={styles.sectionTitle}>Features</Text>
+            <Text style={styles.sectionTitle}>{t('sidebar.about.feature')}</Text>
             <Text style={styles.description}>
-                - Easy to use and navigate.{"\n"}
-                - Secure and reliable.{"\n"}
-                - Customizable to suit your needs.{"\n"}
-                - Real-time updates and notifications.
+               {t('sidebar.about.feature_content1')}{"\n"}
+               {t('sidebar.about.feature_content2')}{"\n"}
+               {t('sidebar.about.feature_content3')}{"\n"}
+               {t('sidebar.about.feature_content4')}
             </Text>
 
-            <Text style={styles.sectionTitle}>Contact Us</Text>
+            <Text style={styles.sectionTitle}>{t('sidebar.about.contact')}</Text>
             <Text style={styles.description}>
-                Have questions, feedback, or need support? Feel free to reach out to us:
+                {t('sidebar.about.contact_content')}
             </Text>
             <Text style={styles.contactInfo}>
-                Email: support@mzdp.com{"\n"}
-                Phone: +1 (234) 567-8901{"\n"}
-                Website: www.mzdp.com
+                {t('sidebar.about.email')}: support@mzdp.com{"\n"}
+                {t('sidebar.about.phone')}: +1 (234) 567-8901{"\n"}
+                {t('sidebar.about.website')}: www.mzdp.com
             </Text>
         </ScrollView>
     );

@@ -23,8 +23,10 @@ import { Link, router, useGlobalSearchParams, useRouter } from 'expo-router'
 import axios from 'axios';
 import { AuthContext } from '../../../context/authContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { useTranslation } from 'react-i18next';
+import '../../../i18n'; // Import the i18n configuration
 const FormInputs = () => {
+    const { t, i18n } = useTranslation();
     const { userId } = useContext(AuthContext)
     const [radioValue, setRadioValue] = useState('option1');
     const [wasteType, setWasteType] = useState('');
@@ -83,7 +85,7 @@ const FormInputs = () => {
                     showsVerticalScrollIndicator={false}
                 >
                     {/* Select Input */}
-                    <Text style={styles.label}>When you use the bin </Text>
+                    <Text style={styles.label}>{t('task_input.time')} </Text>
                     <View style={styles.selectContainer}>
                         <TouchableOpacity
                             onPress={() => setShow(true)}
@@ -94,7 +96,7 @@ const FormInputs = () => {
                                 padding: 10,
                             }}
                         >
-                            <Text style={{ fontSize: 16 }}>{time ? time : "Select time..."}</Text>
+                            <Text style={{ fontSize: 16 }}>{time ? time : t('task_input.select_time')}</Text>
                             <MaterialCommunityIcons name="clock-plus" size={24} color="#6A0DAD" />
                         </TouchableOpacity>
 
@@ -111,14 +113,14 @@ const FormInputs = () => {
                     </View>
 
                     {/* Waste Type */}
-                    <Text style={styles.label}>Waste Type:</Text>
+                    <Text style={styles.label}>{t('task_input.type')}</Text>
                     <View style={styles.selectContainer}>
                         <Picker
                             selectedValue={wasteType}
                             style={styles.selectInput}
                             onValueChange={(itemValue) => setWasteType(itemValue)}
                         >
-                            <Picker.Item label="Select..." value="" />
+                            <Picker.Item label={t('task_input.select_type')} value="" />
                             <Picker.Item label="Biodegradable waste" value="biodegradable" />
                             <Picker.Item label="Non-Biodegradable Waste" value="non-biodegradable" />
                             <Picker.Item label="Solid Waste" value="solid-waste" />
@@ -137,7 +139,7 @@ const FormInputs = () => {
                     /> */}
                     <View style={styles.inlineContainer}>
                         <Text style={styles.label}>
-                            Enter Waste Amount: {wasteAmount || '0'} {unit}
+                        {t('task_input.amount')} {wasteAmount || '0'} {unit}
                         </Text>
                     </View>
                     <View style={styles.inputContainer}>
@@ -146,7 +148,7 @@ const FormInputs = () => {
                             keyboardType="numeric"
                             value={wasteAmount}
                             onChangeText={handleWasteAmountChange}
-                            placeholder="Enter amount"
+                            placeholder={t('task_input.placeholder_amount')}
                         />
                         <Picker
                             selectedValue={unit}
@@ -159,7 +161,7 @@ const FormInputs = () => {
                     </View>
 
                     {/* Radio Input */}
-                    <Text style={styles.label}>Did you follow the waste management rules?</Text>
+                    <Text style={styles.label}>{t('task_input.rule')}</Text>
                     <View style={styles.radioGroup}>
                         <TouchableOpacity
                             style={styles.radioButton}
@@ -171,7 +173,7 @@ const FormInputs = () => {
                                     radioValue === true && styles.radioSelected,
                                 ]}
                             />
-                            <Text style={styles.radioLabel}>Yes</Text>
+                            <Text style={styles.radioLabel}>{t('task_input.yes')}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.radioButton}
@@ -183,13 +185,13 @@ const FormInputs = () => {
                                     radioValue === false && styles.radioSelected,
                                 ]}
                             />
-                            <Text style={styles.radioLabel}>No</Text>
+                            <Text style={styles.radioLabel}>{t('task_input.no')}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: 'center' }}>
                         <TouchableOpacity onPress={handleSubmit} style={{ backgroundColor: "#6A0DAD", paddingRight: 10, paddingLeft: 15, paddingVertical: 10, borderRadius: 10, marginTop: 15 }}>
                             <View style={{ flexDirection: 'row', alignItems: "flex-end" }}>
-                                <Text style={{ fontSize: 20, fontWeight: 500, color: "#fff" }}>submit</Text>
+                                <Text style={{ fontSize: 20, fontWeight: 500, color: "#fff" }}>{t('task_input.submit')}</Text>
                                 <MaterialIcons name="keyboard-arrow-right" size={24} color="#fff" />
                             </View>
                         </TouchableOpacity>
@@ -206,9 +208,9 @@ const FormInputs = () => {
                     >
                         <View style={styles.modalBackground}>
                             <View style={styles.modalContainer}>
-                                <Text style={styles.modalTitle}>Excellent !!!</Text>
+                                <Text style={styles.modalTitle}>{t('task_input.excellent')}</Text>
                                 <Text style={styles.modalContent}>
-                                    You earn <Text style={{ fontsize: 20, fontWeight: 'bold' }}>20</Text> Points.
+                                {t('task_input.earn')}
                                 </Text>
 
                                 {/* Button to Close Modal */}
@@ -219,7 +221,7 @@ const FormInputs = () => {
                                         router.replace(`home/rewards?rewardPoints=${rewardPoints}`)
                                     }}
                                 >
-                                    <Text style={styles.buttonText}>OK</Text>
+                                    <Text style={styles.buttonText}>{t('task_input.ok')}</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
