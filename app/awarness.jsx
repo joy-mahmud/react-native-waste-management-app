@@ -3,20 +3,22 @@ import { StyleSheet, Text, View, ScrollView, } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { blurhash } from '../utils/constants';
 import { Image } from 'expo-image';
-
+import { useTranslation } from 'react-i18next';
+import '../i18n'; // Import the i18n configuration
 const AwarenessPage = () => {
+    const { t } = useTranslation();
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
                
                 <FontAwesome name="recycle" size={40} color="#6A0DAD" />
-                <Text style={styles.headerText}>Recycle for a Better Future</Text>
+                <Text style={styles.headerText}>{t('sidebar.awarness.title')}</Text>
             </View>
 
             <View style={styles.content}>
-                <Text style={styles.sectionTitle}>Why Recycle?</Text>
+                <Text style={styles.sectionTitle}>{t('sidebar.awarness.why_recycle')}</Text>
                 <Text style={styles.text}>
-                    Recycling helps conserve resources, reduce pollution, and protect the environment. It also minimizes the amount of waste sent to landfills and incinerators, preserving our planet for future generations.
+                {t('sidebar.awarness.why_recycle_content')}
                 </Text>
 
                 <View style={{alignSelf:'center'}}>
@@ -28,17 +30,17 @@ const AwarenessPage = () => {
                     />
                 </View>
 
-                <Text style={styles.sectionTitle}>How You Can Help</Text>
+                <Text style={styles.sectionTitle}>{t('sidebar.awarness.how_u_help')}</Text>
                 <Text style={styles.text}>
-                    - Separate recyclables from non-recyclable waste.{'\n'}
-                    - Educate others about the importance of recycling.{'\n'}
-                    - Support companies that use recycled materials.{'\n'}
-                    - Reduce, reuse, and recycle every day.
+                {t('sidebar.awarness.how_u_help_1')}{'\n'}
+                {t('sidebar.awarness.how_u_help_2')}{'\n'}
+                {t('sidebar.awarness.how_u_help_3')}{'\n'}
+                {t('sidebar.awarness.how_u_help_4')}
                 </Text>
 
-                <Text style={styles.sectionTitle}>Did You Know?</Text>
+                <Text style={styles.sectionTitle}>{t('sidebar.awarness.did_u_know')}</Text>
                 <Text style={styles.text}>
-                    Recycling one ton of paper can save 17 trees and 7,000 gallons of water. Small steps can lead to big changes!
+                {t('sidebar.awarness.did_u_know_content')}
                 </Text>
             </View>
         </ScrollView>

@@ -20,7 +20,7 @@ const NearestRecycle = () => {
                         />
 
                     </View>
-                    <Text style={styles.subtitle}>Bin</Text>
+                    <Text style={styles.subtitle}>{t('home.bin')}</Text>
                 </View>
                 <View style={styles.binCard}>
                     <View style={styles.imgContainer}>
@@ -32,7 +32,7 @@ const NearestRecycle = () => {
                         />
 
                     </View>
-                    <Text style={styles.subtitle}>Center</Text>
+                    <Text style={styles.subtitle}>{t('home.center')}</Text>
                 </View>
             </View>
         </View>

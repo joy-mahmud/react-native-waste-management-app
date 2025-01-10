@@ -19,7 +19,10 @@ import axios from 'axios';
 import { BASE_URL } from '../utils/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import { useTranslation } from 'react-i18next';
+import '../i18n'; // Import the i18n configuration
 const Register = () => {
+  const { t } = useTranslation();
   const router = useRouter()
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -45,19 +48,19 @@ const Register = () => {
   };
   const handleSignup = () => {
     if (!name.trim()) {
-      Alert.alert('Validation Error', 'Name is required.');
+      Alert.alert(t('registration.validation_error'), t('registration.validation_name'));
       return;
     }
     if (!phoneNumber.trim()) {
-      Alert.alert('Validation Error', 'Phone number is required.');
+      Alert.alert(t('registration.validation_error'), t('registration.validation_phone'));
       return;
     }
     if (!password.trim()) {
-      Alert.alert('Validation Error', 'Phone number is required.');
+      Alert.alert(t('registration.validation_error'), t('registration.validation_password'));
       return;
     } else {
       if (password.length < 6) {
-        Alert.alert("password error", "please enter at least 6 characters for the password")
+        Alert.alert(t('registration.password_error'), t('registration.password_error_msg'))
         return;
       }
       setCurrentStep(2)
@@ -94,27 +97,27 @@ const Register = () => {
       // Make the API call
       const response = await axios.post(`${BASE_URL}/register`, data);
       const token = response.data.token
-      const user=response.data?.user
+      const user = response.data?.user
       if (response.status === 200) { // Assuming 201 is the success code
         //Alert.alert('Registration successful', "Welcome you have successfully completed your registration");
         await AsyncStorage.setItem("authToken", token)
-        await AsyncStorage.setItem("user",JSON.stringify(user))
+        await AsyncStorage.setItem("user", JSON.stringify(user))
         showToast()
         setTimeout(() => {
           router.replace('/home');
         }, 1500);
-      
+
         setAddress('');
         setHoldingNumber('');
         setFamilyMembers('');
         setWasteType('');
         //router.replace('/login'); 
       } else {
-        Alert.alert('Error', 'Registration failed. Please try again.');
+        Alert.alert(t('registration.error'), t('registration.error_msg'));
       }
     } catch (error) {
       console.log(error);
-      Alert.alert('Error', 'An error occurred while registering. Please try again.');
+      Alert.alert(t('registration.error'), t('registration.error_msg2'));
     }
   }
 
@@ -130,41 +133,41 @@ const Register = () => {
             contentContainerStyle={styles.scrollContent}
             keyboardShouldPersistTaps="handled"
           >
-            <Text style={styles.title}>Create a new account</Text>
+            <Text style={styles.title}>{t('registration.title')}</Text>
 
             {/* Name Input */}
-            <Text style={styles.label}>Name</Text>
+            <Text style={styles.label}>{t('registration.name')}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter your name"
+              placeholder={t('registration.placeholder_name')}
               value={name}
               onChangeText={setName}
             />
 
             {/* Phone Number Input */}
-            <Text style={styles.label}>Phone Number</Text>
+            <Text style={styles.label}>{t('registration.phone')}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter your phone number"
+              placeholder={t('registration.placeholder_phone')}
               value={phoneNumber}
               keyboardType="phone-pad"
               onChangeText={setPhoneNumber}
             />
 
             {/* Email Input */}
-            <Text style={styles.label}>Email (Optional)</Text>
+            <Text style={styles.label}>{t('registration.email')}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter your email"
+              placeholder={t('registration.placeholder_email')}
               value={email}
               keyboardType="email-address"
               onChangeText={setEmail}
             />
-            <Text style={styles.label}>Password</Text>
+            <Text style={styles.label}>{t('registration.password')}</Text>
             <View style={styles.passContainer}>
               <TextInput
                 style={styles.passInput}
-                placeholder="Enter a new password"
+                placeholder={t('registration.placeholder_password')}
                 value={password}
                 secureTextEntry={!isPasswordVisible}
                 onChangeText={setPassword}
@@ -182,12 +185,12 @@ const Register = () => {
               </TouchableOpacity>
             </View>
             <View style={{ flexDirection: 'row', gap: 2, marginBottom: 15, }}>
-              <Text style={{ fontSize: 16 }}>Already have an account?</Text><Link style={{ color: "#6A0DAD", fontSize: 16, fontWeight: 500 }} href={'/login'}>Login</Link>
+              <Text style={{ fontSize: 16 }}>{t('registration.already_have_account')}</Text><Link style={{ color: "#6A0DAD", fontSize: 16, fontWeight: 500 }} href={'/login'}>{t('registration.login')}</Link>
             </View>
 
             {/* Submit Button */}
             <TouchableOpacity style={styles.button} onPress={handleSignup}>
-              <Text style={styles.buttonText}>Next</Text>
+              <Text style={styles.buttonText}>{t('registration.next')}</Text>
             </TouchableOpacity>
           </ScrollView>
         }
@@ -196,8 +199,8 @@ const Register = () => {
             contentContainerStyle={styles.scrollContent}
             keyboardShouldPersistTaps="handled"
           >
-            <Text style={styles.title}>Fill the information to complete registration</Text>
-            <Text style={styles.label}>Address</Text>
+            <Text style={styles.title}>{t('registration.fill_info')}</Text>
+            <Text style={styles.label}>{t('registration.address')}</Text>
             <TextInput
               style={styles.input}
               placeholder="Enter your address"
@@ -205,39 +208,39 @@ const Register = () => {
               onChangeText={setAddress}
             />
 
-            <Text style={styles.label}>Holding Number</Text>
+            <Text style={styles.label}>{t('registration.holding_no')}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter your holding number"
+              placeholder={t('registration.placeholder_address')}
               value={holdingNumber}
               onChangeText={setHoldingNumber}
               keyboardType="numeric"
             />
 
-            <Text style={styles.label}>Family Members</Text>
+            <Text style={styles.label}>{t('registration.family_members')}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter number of family members"
+              placeholder={t('registration.placeholder_family_members')}
               value={familyMembers}
               onChangeText={setFamilyMembers}
               keyboardType="numeric"
             />
 
-            <Text style={styles.label}>Usual Waste Type</Text>
+            <Text style={styles.label}>{t('registration.usual_waste_type')}</Text>
             <View style={styles.pickerContainer}>
               <Picker
                 selectedValue={wasteType}
                 onValueChange={(itemValue) => setWasteType(itemValue)}
               >
-                <Picker.Item label="Select waste type" value="" />
-                <Picker.Item label="Organic" value="organic" />
-                <Picker.Item label="Recyclable" value="recyclable" />
-                <Picker.Item label="Hazardous" value="hazardous" />
-                <Picker.Item label="E-waste" value="e-waste" />
+                <Picker.Item label={t('registration.select_waste_type')} value="" />
+                <Picker.Item label={t('registration.organic')} value="organic" />
+                <Picker.Item label={t('registration.recyclable')} value="recyclable" />
+                <Picker.Item label={t('registration.hazardous')} value="hazardous" />
+                <Picker.Item label={t('registration.e_waste')} value="e-waste" />
               </Picker>
             </View>
             <TouchableOpacity style={styles.button} onPress={handleCompleteSignUp}>
-              <Text style={styles.buttonText}>Complete</Text>
+              <Text style={styles.buttonText}>{t('registration.complete')}</Text>
             </TouchableOpacity>
             <Toast />
           </ScrollView>

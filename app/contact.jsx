@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Linking } from 'react-native';
-
+import { useTranslation } from 'react-i18next';
+import '../i18n'; // Import the i18n configuration
 const ContactUsPage = () => {
+  const { t } = useTranslation();
   const handleEmail = () => {
     Linking.openURL('mailto:sabbir1517003@gmail.com?subject=Support Request&body=Hello, I need help with...');
   };
@@ -16,43 +18,43 @@ const ContactUsPage = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}> Meherpur Zila Development Program (MZDP)</Text>
+      <Text style={styles.title}>{t('sidebar.contact.title')}</Text>
       <Text style={styles.description}>
-        We’re here to help! If you have any questions, feedback, or need support, feel free to reach out to us using the options below.
+        {t('sidebar.contact.title_content')}
       </Text>
 
       <View style={styles.contactItem}>
-        <Text style={styles.label}>Email:</Text>
+        <Text style={styles.label}>{t('sidebar.contact.email')}</Text>
         <TouchableOpacity onPress={handleEmail}>
           <Text style={styles.link}>support@mzdp.com</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.contactItem}>
-        <Text style={styles.label}>Phone:</Text>
+        <Text style={styles.label}>{t('sidebar.contact.phone')}</Text>
         <TouchableOpacity onPress={handlePhoneCall}>
           <Text style={styles.link}>+8801304175559</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.contactItem}>
-        <Text style={styles.label}>Website:</Text>
+        <Text style={styles.label}>{t('sidebar.contact.website')}</Text>
         <TouchableOpacity onPress={handleWebsite}>
           <Text style={styles.link}>www.mzdp.com</Text>
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.subTitle}>Send Us a Message</Text>
-      <TextInput style={styles.input} placeholder="Your Name" />
-      <TextInput style={styles.input} placeholder="Your Email" keyboardType="email-address" />
+      <Text style={styles.subTitle}>{t('sidebar.contact.send_us_msg')}</Text>
+      <TextInput style={styles.input} placeholder={t('sidebar.contact.your_name')} />
+      <TextInput style={styles.input} placeholder={t('sidebar.contact.your_email')} keyboardType="email-address" />
       <TextInput
         style={[styles.input, styles.textArea]}
-        placeholder="Your Message"
+        placeholder={t('sidebar.contact.your_msg')}
         multiline
         numberOfLines={4}
       />
       <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Send Message</Text>
+        <Text style={styles.buttonText}>{t('sidebar.contact.send_msg')}</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#6A0DAD',
     marginBottom: 20,
-    textAlign:'center'
+    textAlign: 'center'
   },
   description: {
     fontSize: 16,

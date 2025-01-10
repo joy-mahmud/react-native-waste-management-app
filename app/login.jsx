@@ -14,13 +14,17 @@ import {
   TouchableWithoutFeedback,
   ToastAndroid,
 } from 'react-native';
+
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import { BASE_URL } from '../utils/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import { useTranslation } from 'react-i18next';
+import '../i18n'; // Import the i18n configuration
 const Login = () => {
-  const router= useRouter()
+  const { t } = useTranslation();
+  const router = useRouter()
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,8 +40,8 @@ const Login = () => {
     });
 
   };
-  const handleLogin = async() => {
-   
+  const handleLogin = async () => {
+
     if (!phoneNumber.trim()) {
       Alert.alert('Validation Error', 'Phone number is required.');
       return;
@@ -45,35 +49,35 @@ const Login = () => {
     if (!password.trim()) {
       Alert.alert('Password Error', 'Please put your password');
       return;
-    } 
-    const data= {
-      phone:phoneNumber,
-      password:password
+    }
+    const data = {
+      phone: phoneNumber,
+      password: password
     }
     try {
       const response = await axios.post(`${BASE_URL}/login`, data);
-  
+
       if (response.status === 200) {
         const token = response.data.token;
-        const user=response.data?.user
-  
+        const user = response.data?.user
+
         // Save token in AsyncStorage
         await AsyncStorage.setItem('authToken', token);
-        await AsyncStorage.setItem('user',JSON.stringify(user));
+        await AsyncStorage.setItem('user', JSON.stringify(user));
         showToast()
         setPhoneNumber('')
         setPassword('')
         setTimeout(() => {
           router.replace('/home');
         }, 1500);
-       
+
         // Navigate to the home screen
-        
+
       }
     } catch (error) {
       // Handle error response
       if (error.response && error.response.status === 401) {
-        Alert.alert('Invalid Credentials', 'The phone number or password is incorrect.');
+        Alert.alert(t('login.invalid_credentials'), t('login.invalid_msg'));
       } else {
         // Handle other possible errors
         Alert.alert('Error', 'Something went wrong. Please try again later.');
@@ -93,24 +97,24 @@ const Login = () => {
           contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
         >
-          <Text style={styles.title}>Login Now</Text>
+          <Text style={styles.title}>{t('login.title')}</Text>
 
 
           {/* Phone Number Input */}
-          <Text style={styles.label}>Phone Number</Text>
+          <Text style={styles.label}>{t('login.phone')}</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter your phone number"
+            placeholder={t('login.placeholder_phone')}
             value={phoneNumber}
             keyboardType="phone-pad"
             onChangeText={setPhoneNumber}
           />
 
-          <Text style={styles.label}>Password</Text>
+          <Text style={styles.label}>{t('login.password')}</Text>
           <View style={styles.passContainer}>
             <TextInput
               style={styles.passInput}
-              placeholder="Enter your password"
+              placeholder={t('login.placeholder_password')}
               value={password}
               secureTextEntry={!isPasswordVisible}
               onChangeText={setPassword}
@@ -118,7 +122,7 @@ const Login = () => {
             />
             <TouchableOpacity
               onPress={() => setPasswordVisible(!isPasswordVisible)}
-      
+
             >
               <MaterialCommunityIcons
                 name={isPasswordVisible ? "eye-off" : "eye"}
@@ -128,12 +132,12 @@ const Login = () => {
             </TouchableOpacity>
           </View>
           <View style={{ flexDirection: 'row', gap: 2, marginBottom: 15, }}>
-            <Text style={{ fontSize: 16 }}>Don't have an account?</Text><Link style={{ color: "#6A0DAD", fontSize: 18, fontWeight: 500 }} href={'/register'}>Create Account</Link>
+            <Text style={{ fontSize: 16 }}>{t('login.do_not_have_account')}</Text><Link style={{ color: "#6A0DAD", fontSize: 16, fontWeight: 500 }} href={'/register'}>{t('login.create_account')}</Link>
           </View>
 
           {/* Submit Button */}
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
-            <Text style={styles.buttonText}>Login</Text>
+            <Text style={styles.buttonText}>{t('login.login')}</Text>
           </TouchableOpacity>
           <Toast />
         </ScrollView>
@@ -157,7 +161,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
-    color:"#6A0DAD"
+    color: "#6A0DAD"
   },
   label: {
     fontSize: 16,
@@ -198,11 +202,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   passInput: {
-    width:'90%',
+    width: '90%',
     fontSize: 16,
     padding: 0,
     color: '#000',
-    
+
   },
   eyeIcon: {
     marginLeft: 8,

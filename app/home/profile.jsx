@@ -63,7 +63,7 @@ const ProfileScreen = () => {
     // Perform logout (e.g., remove token from AsyncStorage or context)
     await AsyncStorage.removeItem('authToken');
     await AsyncStorage.removeItem('user');
-    Alert.alert('Logout Successful');
+    Alert.alert(t('logout.logout_msg'));
     router.push('/login')
   };
   const handleEditProfile = () => {

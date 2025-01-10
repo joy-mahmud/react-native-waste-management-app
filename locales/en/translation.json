@@ -14,7 +14,9 @@
         "next": "Next",
         "sponsor": "Sponsored by",
         "track_impact": "Track your Impact and view Progress",
-        "find_bin": "Find nearest collection center or bin"
+        "find_bin": "Find nearest collection center or bin",
+        "bin": "Bin",
+        "center": "Center"
     },
     "task_input": {
         "time": "When did you use the bin?",
@@ -39,6 +41,58 @@
         "holding_no": "Holding No:",
         "logout": "Logout"
     },
+    "login":{
+        "title":"Login Now",
+        "phone":"Phone Number",
+        "placeholder_phone":"Enter your phone number",
+        "password":"Password",
+        "placeholder_password":"Enter your password",
+        "do_not_have_account":"Don't have an account?",
+        "create_account":"Create Account",
+        "login":"Login",
+        "invalid_credentials":"Invalid Credentials",
+        "invalid_msg":"The phone number or password is incorrect"
+    },
+    "registration":{
+        "title":"Create a new account",
+        "name":"name",
+        "placeholder_name":"Enter your name",
+        "phone":"Phone number",
+        "placeholder_phone":"Enter your phone number",
+        "email":"Email (Optional)",
+        "placeholder_email":"Enter your email",
+        "password":"Password",
+        "placeholder_password":"Enter a new password",
+        "already_have_account":"Already have an account?",
+        "login":"Login",
+        "next":"Next",
+        "fill_info":"Fill the information to complete registration",
+        "address":"Address",
+        "placeholder_address":"Enter your address",
+        "holding_no":"Holding No",
+        "family_members":"Family Members",
+        "placeholder_family_members":"Enter number of family members",
+        "usual_waste_type":"Usual Waste Type",
+        "select_waste_type":"Select waste type",
+        "organic":"Organic",
+        "recyclable":"Recyclable",
+        "hazardous":"Hazardous",
+        "e_waste":"E-waste",
+        "complete":"Complete",
+        "validation_error":"Validation Error",
+        "validation_name":"Name is required",
+        "validation_phone":"Phone number is required",
+        "validation_password":"Password is required",
+        "error":"Error",
+        "password_error":"password error", 
+        "password_error_msg":"please enter at least 6 characters for the password",
+        "error_msg":"Registration failed. Please try again.",
+        "error_msg2":"An error occurred while registering. Please try again."
+
+    },
+    "logout":{
+        "logout_msg":"Logout Successfull"
+    },
     "edit_profile": {
         "upload_photo": "Upload a new photo",
         "name": "Name:",
@@ -60,7 +114,7 @@
     "sidebar": {
         "screens": {
             "about": "About",
-            "contact": "Contact us",
+            "contact": "Contact Us",
             "awarness": "Awarness and updates",
             "logout": "Logout"
         },
@@ -77,6 +131,31 @@
             "email": "Email",
             "phone": "Phone",
             "website": "Website"
+        },
+        "contact":{
+            "title":"Meherpur Zila Development Program (MZDP)",
+            "title_content": "We’re here to help! If you have any questions, feedback, or need support, feel free to reach out to us using the options below.",
+            "email": "Email:",
+            "phone": "Phone:",
+            "website": "Website:",
+            "send_us_msg":"Send Us a Message",
+            "your_name":"Your Name",
+            "your_email":"Your Email",
+            "your_msg":"Your Message",
+            "send_msg":"Send Message"
+        },
+        "awarness":{
+            "title":"Recycle For a Better Futute",
+            "why_recycle":"Why Recycle?",
+            "why_recycle_content":"Recycling helps conserve resources, reduce pollution, and protect the environment. It also minimizes the amount of waste sent to landfills and incinerators, preserving our planet for future generations.",
+            "how_u_help":"How You Can Help",
+            "how_u_help_1":"- Separate recyclables from non-recyclable waste.",
+            "how_u_help_2":"- Educate others about the importance of recycling.",
+            "how_u_help_3":"- Support companies that use recycled materials.",
+            "how_u_help_4":"- Reduce, reuse, and recycle every day.",
+            "did_u_know":"Did You Know?",
+            "did_u_know_content":"Recycling one ton of paper can save 17 trees and 7,000 gallons of water. Small steps can lead to big changes!"
         }
+
     }
 }

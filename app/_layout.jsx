@@ -48,8 +48,8 @@ export default function RootLayout() {
         <Stack.Screen name="login" options={{ headerShown: false }} />
         <Stack.Screen name="editProfile" options={{ headerShown: false }} />
         <Stack.Screen name="about" options={{ headerTitle:t('sidebar.screens.about'),headerTitleAlign:'center' }} />
-        <Stack.Screen name="contact" options={{ headerTitle:"Contact Us",headerTitleAlign:'center' }} />
-        <Stack.Screen name="awarness" options={{ headerTitle:"Awarness and updates",headerTitleAlign:'center' }} />
+        <Stack.Screen name="contact" options={{ headerTitle:t('sidebar.screens.contact'),headerTitleAlign:'center' }} />
+        <Stack.Screen name="awarness" options={{ headerTitle:t('sidebar.screens.awarness'),headerTitleAlign:'center' }} />
         <Stack.Screen name="test" options={{ headerTitle:"test",headerTitleAlign:'center' }} />
         
       </Stack>
