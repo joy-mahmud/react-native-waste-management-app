@@ -121,10 +121,10 @@ const FormInputs = () => {
                             onValueChange={(itemValue) => setWasteType(itemValue)}
                         >
                             <Picker.Item label={t('task_input.select_type')} value="" />
-                            <Picker.Item label="Biodegradable waste" value="biodegradable" />
-                            <Picker.Item label="Non-Biodegradable Waste" value="non-biodegradable" />
-                            <Picker.Item label="Solid Waste" value="solid-waste" />
-                            <Picker.Item label="Organic Waste" value="organic-waste" />
+                            <Picker.Item label={t('task_input.bio_degredable')} value="biodegradable" />
+                            <Picker.Item label={t('task_input.non_bio_degredable')} value="non-biodegradable" />
+                            <Picker.Item label={t('task_input.solid_waste')} value="solid-waste" />
+                            <Picker.Item label={t('task_input.organic_waste')} value="organic-waste" />
                         </Picker>
                     </View>
 
